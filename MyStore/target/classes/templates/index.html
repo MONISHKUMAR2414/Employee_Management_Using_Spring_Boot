@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tcare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .marquee-text {
+            font-weight: bold;
+            color: black;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            width: 100%;
+            margin: 0 auto;
+            padding-bottom: 20px; /* Add space between h1 and paragraph */
+        }
+
+        .navbar {
+            background-color: #6c757d; /* Bootstrap .bg-secondary color */
+        }
+
+        body {
+            background-image: url("https://www.fineshare.com/background/professional-zoom-backgrounds-2.jpg"); /* Replace with your image path */
+            height: 100%; /* Full height of the viewport */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: cover; /* Scale the image to cover the entire background */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar-nav .nav-link {
+            padding: 0.5rem 1rem; /* Adjust padding */
+            margin: 0 10px; /* Adjust margin */
+            color: #ffffff; /* Text color for navbar links */
+        }
+
+        .navbar-nav .nav-link.bold {
+            font-weight: bold; /* Make links bold */
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        .footer {
+            background: #10182F;
+            border-radius: 6px;
+            padding: 60px;
+            margin-top: auto;
+        }
+
+        .footer .footer-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 3.5rem;
+        }
+
+        .footer-row .footer-col h4 {
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        .footer-col .links {
+            margin-top: 20px;
+        }
+
+        .footer-col .links li {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .footer-col .links li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-col .links li a:hover {
+            color: #ff8aff;
+        }
+
+        .footer-col p {
+            color: #fff;
+        }
+
+        .footer-col form input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            width: 70%;
+        }
+
+        .footer-col form button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff8aff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .footer-col form button:hover {
+            background-color: #e27de1;
+        }
+
+        .icons i {
+            color: #fff;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .icons i:hover {
+            color: #ff8aff;
+        }
+
+        .content {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Add margin between sections */
+        }
+
+        .content p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .flex-container .text {
+            flex: 1;
+        }
+
+        .flex-container .image {
+            flex: 1;
+            display: flex;
+            justify-content: center; /* Center image horizontally */
+            align-items: center; /* Center image vertically */
+        }
+
+        .flex-container .image img {
+            width: 100%; /* Ensure the image takes up the full width of its container */
+            max-width: 80%; /* Restrict the maximum width to 80% of the container */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 8px;
+        }
+    </style>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link bold" href="#"><i class="bi bi-wordpress"></i> Employee Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bold" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bold" href="/contact">Contact</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav me-3" sec:authorize="isAuthenticated()">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">User</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                        <li><a class="dropdown-item" href="/home">Home</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <form sec:authorize="isAuthenticated()" method="post" action="/logout">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+
+            <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                <li class="nav-item" style="margin-right: 10px;">
+                    <a href="/register" class="btn btn-primary">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/login" class="btn btn-primary mr-2">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="marquee-text" sec:authorize="!isAuthenticated()">Tcare Employee Management System</h1>
+            <div class="content flex-container" sec:authorize="!isAuthenticated()">
+                <div class="text" >
+                    <p>
+                        Welcome to Tcare Employee Management System. Our platform is designed to streamline the process of managing employee records, tracking performance, and enhancing overall productivity. With an intuitive interface and comprehensive features, Tcare ensures that your HR department can operate efficiently and effectively.
+                    </p>
+                </div>
+                <div class="image">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlnymqnp-CDqgnSYtCJpCPEB07j0HCdq2bgw&usqp=CAU" alt="Employee Management">
+                </div>
+            </div>
+            <div class="content flex-container" sec:authorize="!isAuthenticated()">
+                <div class="text">
+                    <p>
+                        From onboarding new hires to managing payroll, Tcare covers all aspects of employee management. Our system is equipped with powerful tools for scheduling, leave management, and reporting, making it easier than ever to keep track of your workforce.
+                    </p>
+                </div>
+                <div class="image">
+                    <img class="larger" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlZeXweCdouD3p-NI08jD9SQ5k-WKJww8HIw&usqp=CAU" alt="HR Tools">
+                </div>
+            </div>
+            <div class="content" sec:authorize="!isAuthenticated()">
+                <p>
+                    Explore our features and discover how Tcare can transform your employee management process. Our support team is always here to assist you with any questions or concerns.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-row">
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p>Email: info@example.com</p>
+                <p>Phone: 123-456-7890</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Follow Us</h4>
+                <div class="icons">
+                    <i class="fa fa-facebook"></i>
+                    <i class="fa fa-twitter"></i>
+                    <i class="fa fa-instagram"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIqHxPiF3h9oFf9NJMSDqfqpHtb5f6IOvvfI1QYeoSg7a8F1dEG" crossorigin="anonymous"></script>
+</body>
+</html>

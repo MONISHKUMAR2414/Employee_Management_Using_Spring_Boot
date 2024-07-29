@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Input Animation</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700");
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('https://e1.pxfuel.com/desktop-wallpaper/824/769/desktop-wallpaper-professional-business-professionals.jpg');
+            background-size: cover;
+            background-position: center;
+            color: violet;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(79, 46, 107, 0.8);
+            padding: 20px 40px;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffcfff;
+            font-weight: 700;
+        }
+
+        .container a {
+            text-decoration: none;
+            color: #ffcfff;
+        }
+
+        .btn {
+            cursor: pointer;
+            display: inline-block;
+            width: 100%;
+            background-color: #6a1b9a;
+            padding: 15px;
+            font-family: inherit;
+            font-size: 16px;
+            border: 0;
+            border-radius: 5px;
+            color: #4f2e6b;
+            font-weight: bold;
+        }
+
+        .btn:focus {
+            outline: 0;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .text {
+            margin-top: 30px;
+        }
+
+        .form-group {
+            position: relative;
+            margin: 20px 0 40px;
+        }
+
+        .form-group input {
+            background-color: transparent;
+            border: 0;
+            border-bottom: 2px #ff8aff solid;
+            display: block;
+            width: 100%;
+            padding: 15px 0;
+            font-size: 18px;
+            color: #ffcfff;
+        }
+
+        .form-group input:focus,
+        .form-group input:valid {
+            outline: 0;
+            border-bottom-color: #ffcfff;
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 15px;
+            left: 0;
+        }
+
+        .form-group label span {
+            display: inline-block;
+            font-size: 18px;
+            min-width: 5px;
+            transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .form-group input:focus + label span,
+        .form-group input:valid + label span {
+            color: #ffcfff;
+            transform: translateY(-30px);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Login Form</h1>
+    <form th:action="@{/login}" method="post">
+        <div class="form-group">
+            <input type="email" id="email" name="username" required>
+            <label for="email">Email</label>
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" name="password" required>
+            <label for="password">Password</label>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn">Login</button>
+        </div>
+        <p class="text">Don't have an account? <a th:href="@{/register}">Register</a></p>
+    </form>
+</div>
+<script>
+    const labels = document.querySelectorAll('.form-group label');
+
+    labels.forEach(label => {
+        label.innerHTML = label.innerText
+            .split('')
+            .map((letter, idx) => `<span style="transition-delay:${idx * 30}ms">${letter}</span>`)
+            .join('');
+    });
+</script>
+</body>
+</html>
